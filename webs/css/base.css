@@ -1,0 +1,183 @@
+body
+{
+	background-image: url(../img/bg.png);
+}
+
+a.tab_title
+{
+	font-size: 14px;
+}
+
+li.ui-widget-content
+{
+	font-size: 12px;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	padding: 4px 10px 4px 10px;
+}
+
+.tooltip_styling
+{
+	font-size: 11px;
+}
+
+h3
+{
+	font-size: 14px;
+}
+
+button.play, button.stop, button.del
+{
+}
+
+#submit
+{
+	font-size: 14px;
+	font-weight: normal;
+	font-style: normal;
+	text-transform: none;
+	left: 10%;
+}
+
+#submitting_dialog
+{
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+}
+#submitting_text
+{
+	font-size: 12px;
+}
+
+#submitting_progress
+{
+	font-size: 12px;
+}
+
+div.button_container
+{
+	text-align: right;
+}
+
+p.time_display
+{
+	display: inline;
+	padding-right: 10px;
+	color: #555555;
+}
+
+#tabs
+{
+	margin: auto;
+	width: 80%;
+	max-width: 660px;
+}
+
+#tab_container
+{
+	padding-top: 20px;
+	text-align: center;
+}
+
+#all_songs
+{
+	position:inherit;
+	text-align: center;
+	padding:auto;
+}
+
+#all_list .ui-selecting
+{
+	background: #FECA40;
+}
+
+#all_list .ui-selected
+{
+	background: #F39814; 
+	color: white;
+}
+
+div.list_container
+{
+	border: solid;
+	border-color: #555555;
+	border-width: 1;
+	background-color: #111111;
+}
+
+ol.song_list
+{
+	list-style-type: none; margin: 0; padding: 0;
+	text-align: left;
+	width: 90%;
+	margin: auto;
+}
+
+#upload_container
+{
+	font-size: 12px;
+	text-align: center;
+	padding: auto;
+	border: solid;
+	border-width: 1px;
+	border-color: #222222;
+	background: #555555;
+	list-style-type: none;
+}
+
+#upload_title
+{
+	font-size: 12px;
+	text-align: center;
+	padding: 3px;
+	border: solid;
+	
+	border-width: 1px;
+	border-color: #555555;
+	
+	border-color: #555555;
+	background: #222222;
+}
+
+#upload_progress
+{
+	display: none;
+	text-align: center;
+}
+
+#upload_label
+{
+	display: inline;
+}
+
+#sel_songs
+{
+	font-size: 12px;
+}
+
+p.interval_label
+{
+	color: #F39814;
+	display: inline;
+}
+
+p.interval_data
+{
+	color: #AAAAAA;
+	display: inline;
+	margin-left: 20px;
+}
+
+p.volume_label
+{
+	color: #F39814;
+	display: inline;
+}
+
+p.volume_data
+{
+	color: #AAAAAA;
+	display: inline;
+	margin-left: 20px;
+}

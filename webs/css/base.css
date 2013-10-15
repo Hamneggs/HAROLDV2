@@ -67,6 +67,21 @@ p.time_display
 	color: #555555;
 }
 
+#del_confirm_text
+{
+	font-size: 12px;
+}
+
+#del_confirm_button
+{
+	font-size: 12px;
+}
+
+#del_confirm_dialog
+{
+	text-align: center;
+}
+
 #tabs
 {
 	margin: auto;

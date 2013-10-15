@@ -46,8 +46,8 @@
 		<div id="submitting_progress"></div>
 		<p id="submitting_text"></p>
 	</div>
-	<div id="del_confirm_dialog">
-		<p id="del_confirm_text">Are you sure you want to delete this song from your profile?</p>
-		<button id="del_confirm_button" title="Confirm that you are willing to delete this file from the server.">Dayum straight mofugga!"</button>
+	<div id="del_confirm_dialog" title="Confirm deletion...">
+		<p id="del_confirm_text">Are you sure you want to delete this song from your profile, and the server?</p>
+		<button id="del_confirm_button" title="Confirm that you are willing to delete this file from the server.">Yup</button>
 	</div>
 </body>

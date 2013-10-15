@@ -228,7 +228,7 @@ function init()
         duration: 400
       },
 	  position: {
-		my: "center top", at: "center top+15%"
+		my: "center center", at: "center top+5%"
 	  }
     });
 	
@@ -243,8 +243,21 @@ function init()
         duration: 400
       },
 	  position: {
-		my: "center top", at: "center top+15%"
+		my: "center center", at: "center top+5%"
 	  }
-    }).children("#del_confirm_button").button({
-	}).click( onDeleteConfirmation );
+    }).children("#del_confirm_button").button(); 
+	// Even through we recreate the button each time we delete something, we create it here for robustness.
+}
+
+/*
+	Deletes a whole song from the interface, and soon, the server.
+	
+	Parameters:
+		index: The numerical index of the song to be deleted.
+*/
+function deleteWholeSong(index)
+{
+	// For now we just delete the list index, and the array index.
+	$("#selectable_song_"+index).remove();
+	allSongs[index] = null;
 }

@@ -73,9 +73,25 @@ function onWholeStop(propElement)
 
 /*
 	Called when the user clicks the delete button of a whole song.
+	
+	Parameters:
+	propElement (JQuery object): The JQuery object that
+		is calling the callback. This should be the delete
+		button that was pressed.
 */
 function onWholeDelete(propElement)
 {
+	// Initialize the delete button with a function that can reference the current song.
+	$( "#del_confirm_button" ).button().click(function(){
+											deleteWholeSong( 
+												parseInt(
+													$(propElement).closest(".selectable_song").attr("id").split("_")[2]
+												)
+											);
+											$( "#del_confirm_dialog" ).dialog("close");
+										});
+										
+	// Open the confirmation dialog.
 	$( "#del_confirm_dialog" ).dialog("open");
 }
 

@@ -69,3 +69,12 @@ function onSubmitChanges()
 		value: false
 	});
 }
+
+/*
+	Called when the user clicks the whole-song
+	deletion confirmation button.
+*/
+function onDeleteConfirmation()
+{
+	alert("You would have just deleted that song.");
+}

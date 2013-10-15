@@ -210,12 +210,14 @@ function init()
 	});
 	// Set up the tabs.
 	$( "#tabs" ).tabs();
+	
 	// Make the submit button a more proper button.
 	$( "#submit" ).button({
 	}).click( function(){
 		onSubmitChanges();
 	});
 	
+	// Make the submit dialog into a dialog.
 	$( "#submitting_dialog" ).dialog({
       autoOpen: false,
 	  modal: true,
@@ -230,6 +232,7 @@ function init()
 	  }
     });
 	
+	// Do the same with the deletion confirmation dialog.
 	$( "#del_confirm_dialog" ).dialog({
       autoOpen: false,
 	  modal: true,
@@ -243,7 +246,5 @@ function init()
 		my: "center top", at: "center top+15%"
 	  }
     }).children("#del_confirm_button").button({
-	}).click( function(){
-		console.log("Deleting");
-	});
+	}).click( onDeleteConfirmation );
 }

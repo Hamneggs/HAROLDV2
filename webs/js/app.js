@@ -10,8 +10,13 @@ var selSongs = new Array();
 */
 function loadSongs()
 {
+	// Get the DOM element where the entirety of the user's songs shalt be displayed.
 	var allSongList = $("#all_list");
+	
+	// Nuke that jive ass honky mothafucka.
 	allSongList.empty();
+	
+	// Do some stuff to load songs, and for each song, set up the play/pause, stop, and delete buttons.
 	for(var i = 0; i < 50; i++)
 	{
 		if(i > 2)
@@ -93,6 +98,7 @@ function populateSelectedList()
 		for(var i = 0; i < selSongs.length; i++)	// We go through all the selected songs,
 		{
 			var curSong = selSongs[i];				// Create a copy of the song so that we can more easily access it.
+			if(!curSong) continue;
 			// Now we hardcore-style add a new accordion tab to the selected song list.
 			selSongList.append(
 				"<h3 class='sel_song_header' id='sel_song_header_"+i+"'>"+curSong.t+" ("+curSong.f+")</h3>"+
@@ -167,6 +173,7 @@ function populateSelectedList()
 		for(var i = 0; i < selSongs.length; i++)
 		{
 			var curSong = selSongs[i];
+			if(!curSong) continue;
 			
 			var curTimeSlider = $("#interval_slider_"+i);
 			curTimeSlider.slider({

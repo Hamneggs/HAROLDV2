@@ -36,9 +36,7 @@
 				</div>
 			</div>
 			<div id="sel_songs" title="These are the songs that you've selected for use with Harold. You can adjust the volume and play intervals here. Note, however, that the server will only play the first 20 seconds of whatever interval you choose.">
-				<div class="list_container">
-					<ol id="sel_list" class="song_list">You haven't selected any songs yet, my friend.</ol>
-				</div>
+				You haven't selected any songs yet, my friend.
 			</div>
 		</div>
 	</div>

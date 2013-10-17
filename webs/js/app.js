@@ -24,7 +24,7 @@ function loadSongs()
 		else
 			var newSong = new Song("Song "+i, "Sagat.mp3", 100, i, i+20, .8);			
 			
-		allSongList.append("<li class='ui-widget-content selectable_song' id='selectable_song_"+i+"'>\n"+
+		allSongList.append("<li class='ui-widget-content selectable_song' index="+i+"'>\n"+
 							newSong.t+" ("+newSong.f+")\n"+
 							"<div class='button_container'>"+
 								"<audio class='whole_song' preload='none' src='"+newSong.f+"'/>"+
@@ -34,9 +34,23 @@ function loadSongs()
 							"</div>"+
 							"</li>\n");
 		allSongs.push(newSong);
+	}
 		
-		// Initialize the play/pause button of the current song.
-		$("#selectable_song_"+i).children(".button_container").children(".play").button({
+	$(".selectable_song").each(function()
+	{
+		// Get the index of the current selectable_song.
+		var index  	= parseInt( $(this).attr("index") );
+		
+		// Get the button container for this song.
+		var buttons	= $(this).children(".button_container");
+		
+		// Get the three buttons.
+		var play   	= $(buttons).children(".play");
+		var stop   	= $(buttons).children(".stop");
+		var del		= $(buttons).children(".del");
+		
+		// Set up the play button.
+		$(play).button({
 			text: false,						// Don't want text.
 			icons: {primary: "ui-icon-play"}	// Want the play button though.
 		}).click(function(event, ui){
@@ -60,8 +74,8 @@ function loadSongs()
 			$(this).button("option", options);	// Finally, we push those new options right into the button's lap.
 		});
 		
-		// Initialize the stop button.
-		$("#selectable_song_"+i).children(".button_container").children(".stop").button({
+		// Set up the stop button.
+		$(stop).button({
 			text: false,
 			icons: {primary: "ui-icon-stop"}
 		}).click(function(event, ui){	// When we click stop, we reset the song's play button as well.
@@ -73,14 +87,15 @@ function loadSongs()
 			$(this).siblings(".play").button("option", options);
 		});
 		
-		// Initialize the delete button.
-		$("#selectable_song_"+i).children(".button_container").children(".del").button({
+		// Set up the delete button.
+		$(del).button({
 			text: false,
 			icons: {primary: "ui-icon-trash"}
 		}).click(function(event, ui){
 			onWholeDelete(this);
 		});
-	}
+
+	});
 }
 
 /*
@@ -98,28 +113,62 @@ function populateSelectedList()
 		for(var i = 0; i < selSongs.length; i++)	// We go through all the selected songs,
 		{
 			var curSong = selSongs[i];				// Create a copy of the song so that we can more easily access it.
-			if(!curSong) continue;
+			if(!curSong) continue;					// If the song is removed from the whole-song list, and the songs
+													// are not reloaded from the database, then it may leave a null
+													// entry in the songs array.
+													
 			// Now we hardcore-style add a new accordion tab to the selected song list.
 			selSongList.append(
-				"<h3 class='sel_song_header' id='sel_song_header_"+i+"'>"+curSong.t+" ("+curSong.f+")</h3>"+
-				"<div class='selected_song' id='selected_song_"+i+"'>"+
-					"<p class='interval_label' id='interval_label_"+i+"'>Interval:<p class='interval_data' id='interval_data_"+i+"'>From: "+curSong.b+"(s), to: "+curSong.e+"(s)</p></p>"+
-					"<p class='interval_slider' id='interval_slider_"+i+"'></p>"+
-					"<p class='volume_label' id='volume_label_"+i+"'>Voume:<p class='volume_data' id='volume_data_"+i+"'>"+(curSong.v*100)+"(%)</p></p>"+
-					"<p class='volume_slider' id='volume_slider_"+i+"'></p>"+
+				"<h3 class='sel_song_header' index='"+i+"'>"+curSong.t+" ("+curSong.f+")</h3>"+
+				"<div class='selected_song' index='"+i+"'>"+
+					"<div class='slider_container'>"+
+						"<p class='interval_label'>Interval:"+
+							"<p class='interval_data'>From: "+curSong.b+"(s), to: "+curSong.e+"(s)</p>"+
+						"</p>"+
+						"<p class='interval_slider'></p>"+
+						"<p class='volume_label'>Volume:"+
+							"<p class='volume_data'>"+(curSong.v*100)+"(%)</p>"+
+						"</p>"+
+						"<p class='volume_slider'></p>"+
+					"</div>"+
 					"<div class='button_container'>"+
 						"<audio class='partial_song' preload='none' src='"+curSong.f+"'/>"+
-						"<p class='time_display'>"+curSong.b.toFixed(2)+"(s)"+curSong.e.toFixed(2)+"(s)</p>"+
+						"<p class='time_display'>"+curSong.b.toFixed(2)+"(s) ~ "+curSong.e.toFixed(2)+"(s)</p>"+
 						"<button title='Play selected interval' class='play'>play</button>\n"+
 						"<button title='Stop playback' class='stop'>stop</button>\n"+
 						"<button title='Remove song from selection' class='del'>delete</button>\n"+
 					"</div>"+
 				"</div>"
 			);
+		}
+		
+		$(".selected_song").each(function()
+		{
+			// Get the index of the current song.
+			var index = parseInt($(this).attr("index"));
+			
+			// Get the current song. If the current song is null, we skip it.
+			var curSong = selSongs[index];
+			if(!curSong)return;
+			
+			// Get the button and slider containers.
+			var buttons = $(this).children(".button_container");
+			var sliders = $(this).children(".slider_container");
+			
+			// Get the buttons.
+			var play = $(buttons).children(".play");
+			var stop = $(buttons).children(".stop");
+			var del  = $(buttons).children(".del");
+			
+			// Get the timing slider.
+			var timing = $(sliders).children(".interval_slider");
+			
+			// Get also the volume slider.
+			var volume = $(sliders).children(".volume_slider");
 			
 			// Initialize the play button.
 			// Same deal as before with these.
-			$("#selected_song_"+i).children(".button_container").children(".play").button({
+			$(play).button({
 				text: false,
 				icons: {primary: "ui-icon-play"}
 			}).click(function(){
@@ -144,7 +193,7 @@ function populateSelectedList()
 			});
 			
 			// Initialize the stop button.
-			$("#selected_song_"+i).children(".button_container").children(".stop").button({
+			$(stop).button({
 				text: false,
 				icons: {primary: "ui-icon-stop"}
 			}).click(function(){
@@ -157,43 +206,37 @@ function populateSelectedList()
 			});
 			
 			// Initialize the delete button.
-			$("#selected_song_"+i).children(".button_container").children(".del").button({
+			$(del).button({
 				text: false,
 				icons: {primary: "ui-icon-trash"}
 			}).click(function()
 			{
 				onSegmentDelete(this);
 			});
-		}
-		
-		// Make the text size, well, reasonable.
-		$(".sel_song_header").css({"font-size":"12px"});
-		$(".sel_song_element").css({"font-size":"12px"});
-		
-		for(var i = 0; i < selSongs.length; i++)
-		{
-			var curSong = selSongs[i];
-			if(!curSong) continue;
 			
-			var curTimeSlider = $("#interval_slider_"+i);
-			curTimeSlider.slider({
+			// Initialize the song's interval slider.
+			$(timing).slider({
 				range: 	true,
 				min:	0,
-				max:	selSongs[i].l,
+				max:	curSong.l,
 				values: [curSong.b, curSong.e],
-				slide: 	onTimeSlide,
+				slide: 	function(){onTimeSlide(this);}
 			});
 			
-			var curVolSlider = $("#volume_slider_"+i);
-			curVolSlider.slider({
+			// As well as the timing slider.
+			$(volume).slider({
 				range: "min",
 				min: 0,
 				max: 125,
 				step: 1,
 				value: curSong.v * 100,
-				slide: onVolSlide
+				slide: function(){onVolSlide(this);}
 			});
-		}
+		});
+		
+		// Make the text size, well, reasonable.
+		$(".sel_song_header").css({"font-size":"12px"});
+		$(".sel_song_element").css({"font-size":"12px"});
 	}
 }
 		

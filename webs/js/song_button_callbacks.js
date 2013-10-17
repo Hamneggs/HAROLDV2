@@ -14,8 +14,12 @@ function onWholePlay(propElement)
 	// The audio tag is a sibling of the buttons.
 	var audio = $(propElement).siblings(".whole_song");
 	
-	// Stop all other audio streams.
-	$(".stop").click();
+	// Stop all other audio streams beside this one.
+	var index = parseInt($(propElement).closest(".selectable_song").attr("index"));	// Get the index of the current song.
+	$(".selectable_song").each(function(){	// Go through every song, and...
+		if(parseInt($(this).attr("index")) != index)	// ...if its index does not match ours...
+			$(this).find(".stop").click();				// ...click its stop button.
+	});
 	
 	// If the audio stream has loaded no data, we tell it to do so.
 	if(audio[0].readyState == 0)
@@ -85,7 +89,7 @@ function onWholeDelete(propElement)
 	$( "#del_confirm_button" ).button().click(function(){
 											deleteWholeSong( 
 												parseInt(
-													$(propElement).closest(".selectable_song").attr("id").split("_")[2]
+													$(propElement).closest(".selectable_song").attr("index")
 												)
 											);
 											$( "#del_confirm_dialog" ).dialog("close");
@@ -111,16 +115,17 @@ function onWholeDelete(propElement)
 function onSegmentPlay(propElement)
 {
 	
+	// Get the index of this song.
+	var index = parseInt($(propElement).closest(".selected_song").attr("index"));
 	// Get the parent container of the pressed button.
 	var parentContainer = $(propElement).closest(".button_container");
 	
 	// Get the audio element, it being a child of the audio tag.
 	var audio = parentContainer.children(".partial_song");
 	
-	// The sliders are siblings to the button container. Here we get the start
-	// and stop times set by the user. (Observer chaining is naughty. Song object->Slider->here)
-	var start = parentContainer.siblings(".interval_slider").slider("values", 0);
-	var stop = parentContainer.siblings(".interval_slider").slider("values", 1);
+	// Get the start and stop times of the relevant song.
+	var start = selSongs[index].b;
+	var stop = selSongs[index].e;
 	
 	// The time display is a nephew of the sliders.
 	var display = parentContainer.children(".time_display");
@@ -128,7 +133,7 @@ function onSegmentPlay(propElement)
 	// Make sure we only play 20 seconds.
 	if(stop > start+20) stop = start+20;
 	
-	// Stop all other audio streams.
+	// Stop all audio streams.
 	$(".stop").click();
 	
 	// If the audio stream hasn't started loading, we tell it do so.
@@ -231,10 +236,10 @@ function onSegmentDelete(propElement)
 	var curSong = $(propElement).closest(".selected_song");
 	console.log(curSong);
 	// Get the index of that selected song element.
-	var index = parseInt(curSong.attr("id").split("_")[2]);
+	var index = parseInt(curSong.attr("index"));
 	
 	// Get the header of the current song.
-	var curSongHeader = $(curSong).siblings("#sel_song_header_"+index);
+	var curSongHeader = $(curSong).prev(".sel_song_header");
 	console.log(curSongHeader);
 	
 	// Remove the current song.

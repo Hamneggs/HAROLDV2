@@ -127,7 +127,7 @@ function populateSelectedList()
 							"<p class='volume_data'>"+(curSong.v*100)+"(%)</p>"+
 						"</p>"+
 						"<p class='volume_slider'></p>"+
-					"<div>"+
+					"</div>"+
 					"<div class='button_container'>"+
 						"<audio class='partial_song' preload='none' src='"+curSong.f+"'/>"+
 						"<p class='time_display'>"+curSong.b.toFixed(2)+"(s)"+curSong.e.toFixed(2)+"(s)</p>"+
@@ -157,13 +157,11 @@ function populateSelectedList()
 			var stop = $(buttons).children(".stop");
 			var del  = $(buttons).children(".del");
 			
-			// Get the timing slider and its label.
-			var timing = $(sliders).children("interval_slider");
-			var timingLabel = $(sliders).children("interval_data");
+			// Get the timing slider.
+			var timing = $(sliders).children(".interval_slider");
 			
-			// Get also the volume slider and its label.
-			var volume = $(sliders).children("volume_slider");
-			var volumeLabel = $(sliders).children("volume_data");
+			// Get also the volume slider.
+			var volume = $(sliders).children(".volume_slider");
 			
 			// Initialize the play button.
 			// Same deal as before with these.
@@ -214,7 +212,7 @@ function populateSelectedList()
 			});
 			
 			// Initialize the song's interval slider.
-			timing.slider({
+			$(timing).slider({
 				range: 	true,
 				min:	0,
 				max:	curSong.l,
@@ -223,7 +221,7 @@ function populateSelectedList()
 			});
 			
 			// As well as the timing slider.
-			volume.slider({
+			$(volume).slider({
 				range: "min",
 				min: 0,
 				max: 125,

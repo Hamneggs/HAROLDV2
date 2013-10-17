@@ -119,8 +119,8 @@ function onSegmentPlay(propElement)
 	
 	// The sliders are siblings to the button container. Here we get the start
 	// and stop times set by the user. (Observer chaining is naughty. Song object->Slider->here)
-	var start = parentContainer.siblings(".interval_slider").slider("values", 0);
-	var stop = parentContainer.siblings(".interval_slider").slider("values", 1);
+	var start = parseInt( parentContainer.siblings(".interval_slider").slider("values", 0) );
+	var stop = parseInt( parentContainer.siblings(".interval_slider").slider("values", 1) );
 	
 	// The time display is a nephew of the sliders.
 	var display = parentContainer.children(".time_display");

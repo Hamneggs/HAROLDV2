@@ -54,6 +54,9 @@ function onVolSlide(propElement)
 	// Update the song's volume, making it a normalized float.
 	curSong.v = $(propElement).slider("value")/100.0;
 	
+	// Actually edit the song's volume in real time.
+	var audio = $(propElement).closest(".selected_song").find(".partial_song");
+	audio[0].volume = curSong.v;
 	// Update the label data.
 	curLabel.text(parseInt(curSong.v*100)+"(%)");
 }

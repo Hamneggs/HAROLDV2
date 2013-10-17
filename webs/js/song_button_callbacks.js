@@ -126,6 +126,7 @@ function onSegmentPlay(propElement)
 	// Get the start and stop times of the relevant song.
 	var start = selSongs[index].b;
 	var stop = selSongs[index].e;
+	var volume = selSongs[index].v;
 	
 	// The time display is a nephew of the sliders.
 	var display = parentContainer.children(".time_display");
@@ -145,6 +146,7 @@ function onSegmentPlay(propElement)
 	// Now that we have a loading stream, we can set the 
 	// current time and be all like yo, play biatch.
 	audio[0].currentTime = start;
+	audio[0].volume = volume;
 	audio[0].play();
 	
 		

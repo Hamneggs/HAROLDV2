@@ -227,7 +227,7 @@ function populateSelectedList()
 			$(volume).slider({
 				range: "min",
 				min: 0,
-				max: 125,
+				max: 100,
 				step: 1,
 				value: curSong.v * 100,
 				slide: function(){onVolSlide(this);}

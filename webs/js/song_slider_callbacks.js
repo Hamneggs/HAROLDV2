@@ -16,19 +16,19 @@ function onTimeSlide(propElement)
 	var curSong = selSongs[index];
 	
 	// Get the label of the propagating element.
-	var curLabel = $(propElement).siblings(".interval_label").children(".interval_data");
+	var curLabel = $(propElement).closest(".slider_container").find(".interval_data");
 	
 	// Update the current song.
-	curSong.b = $(propElement).slider("values")[0];
-	curSong.e = $(propElement).slider("values")[1];
+	curSong.b = $(propElement).slider("values", 0);
+	curSong.e = $(propElement).slider("values", 1);
 	
 	// Update the time display. Gosh, this is ugly.
-	$(propElement).closest(".button_container").children(".time_display").html(
+	$(propElement).closest(".button_container").find(".time_display").html(
 		curSong.b.toFixed(2)+"(s) ~ "+curSong.e.toFixed(2)+"(s)"
 	);
 	
 	// Update the slider's label.
-	curLabel.text("Start: "+curSong.b+"(s), End: "+curSong.e+"(s)");
+	curLabel.text("From: "+curSong.b+"(s), to: "+curSong.e+"(s)");
 }
 
 /*
@@ -45,14 +45,16 @@ function onVolSlide(propElement)
 	
 	// Get the relevant song object.
 	var curSong = selSongs[index];
+	console.log($(propElement));
 	
 	// Get the slider's label data element.
-	var curLabel = $(propElement).siblings(".volume_label").children(".volume_data");
+	var curLabel = $(propElement).closest(".slider_container").find(".volume_data");
+	console.log($(curLabel));
 	
 	// Update the song's volume, making it a normalized float.
 	curSong.v = $(propElement).slider("value")/100.0;
 	
 	// Update the label data.
-	curLabel.text(parseInt(curSong.v*100)+"(564%)");
+	curLabel.text(parseInt(curSong.v*100)+"(%)");
 }
 	

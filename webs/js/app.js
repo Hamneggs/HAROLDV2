@@ -133,7 +133,7 @@ function populateSelectedList()
 					"</div>"+
 					"<div class='button_container'>"+
 						"<audio class='partial_song' preload='none' src='"+curSong.f+"'/>"+
-						"<p class='time_display'>"+curSong.b.toFixed(2)+"(s)"+curSong.e.toFixed(2)+"(s)</p>"+
+						"<p class='time_display'>"+curSong.b.toFixed(2)+"(s) ~ "+curSong.e.toFixed(2)+"(s)</p>"+
 						"<button title='Play selected interval' class='play'>play</button>\n"+
 						"<button title='Stop playback' class='stop'>stop</button>\n"+
 						"<button title='Remove song from selection' class='del'>delete</button>\n"+

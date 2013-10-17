@@ -115,16 +115,17 @@ function onWholeDelete(propElement)
 function onSegmentPlay(propElement)
 {
 	
+	// Get the index of this song.
+	var index = parseInt($(propElement).closest(".selected_song").attr("index"));
 	// Get the parent container of the pressed button.
 	var parentContainer = $(propElement).closest(".button_container");
 	
 	// Get the audio element, it being a child of the audio tag.
 	var audio = parentContainer.children(".partial_song");
 	
-	// The sliders are siblings to the button container. Here we get the start
-	// and stop times set by the user. (Observer chaining is naughty. Song object->Slider->here)
-	var start = parseInt( parentContainer.siblings(".interval_slider").slider("values", 0) );
-	var stop = parseInt( parentContainer.siblings(".interval_slider").slider("values", 1) );
+	// Get the start and stop times of the relevant song.
+	var start = selSongs[index].b;
+	var stop = selSongs[index].e;
 	
 	// The time display is a nephew of the sliders.
 	var display = parentContainer.children(".time_display");

@@ -19,11 +19,11 @@ function onTimeSlide(propElement)
 	var curLabel = $(propElement).siblings(".interval_label").children(".interval_data");
 	
 	// Update the current song.
-	curSong.b = ui.values[0];
-	curSong.e = ui.values[1];
+	curSong.b = $(propElement).slider("values")[0];
+	curSong.e = $(propElement).slider("values")[1];
 	
 	// Update the time display. Gosh, this is ugly.
-	$(curSlider).nearest(".button_container").children(".time_display").html(
+	$(propElement).closest(".button_container").children(".time_display").html(
 		curSong.b.toFixed(2)+"(s) ~ "+curSong.e.toFixed(2)+"(s)"
 	);
 	

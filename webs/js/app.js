@@ -212,21 +212,23 @@ function populateSelectedList()
 				onSegmentDelete(this);
 			});
 			
+			// Initialize the song's interval slider.
 			timingSlider.slider({
 				range: 	true,
 				min:	0,
 				max:	selSongs[i].l,
 				values: [curSong.b, curSong.e],
-				slide: 	onTimeSlide,
+				slide: 	function(){onTimeSlide(this);}
 			});
 			
+			// As well as the timing slider.
 			volumeSlider.slider({
 				range: "min",
 				min: 0,
 				max: 125,
 				step: 1,
 				value: curSong.v * 100,
-				slide: onVolSlide
+				slide: function(){onVolSlide(this);}
 			});
 		});
 		

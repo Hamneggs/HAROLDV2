@@ -309,6 +309,13 @@ function init()
 function deleteWholeSong(index)
 {
 	// For now we just delete the list index, and the array index.
-	$("#selectable_song_"+index).remove();
+	$(".selectable_song").each(function()
+	{
+		if(parseInt($(this).attr("index")) === index)
+		{
+			$(this).remove();
+			return;
+		}
+	});
 	allSongs[index] = null;
 }

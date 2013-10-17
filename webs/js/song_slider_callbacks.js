@@ -41,18 +41,18 @@ function onTimeSlide(propElement)
 function onVolSlide(propElement)
 {
 	// Get the index of the slider in the list.
-	var index = parseInt($(propElement).nearest("selected_song").attr("index"));
+	var index = parseInt($(propElement).closest(".selected_song").attr("index"));
 	
 	// Get the relevant song object.
 	var curSong = selSongs[index];
 	
 	// Get the slider's label data element.
-	var curLabel = $(propElement).siblings(".volume_label").children(".volume_data_");
+	var curLabel = $(propElement).siblings(".volume_label").children(".volume_data");
 	
 	// Update the song's volume, making it a normalized float.
 	curSong.v = $(propElement).slider("value")/100.0;
 	
 	// Update the label data.
-	curLabel.text(parseInt(curSong.v*100)+"(%)");
+	curLabel.text(parseInt(curSong.v*100)+"(564%)");
 }
 	

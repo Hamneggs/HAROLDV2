@@ -59,6 +59,7 @@ function onFileSelected()
 
 /*
 	Called when the user clicks the submit button.
+	If done in javascript, this is where server access should happen.
 */
 function onSubmitChanges()
 {

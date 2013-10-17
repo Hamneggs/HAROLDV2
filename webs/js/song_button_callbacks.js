@@ -14,8 +14,12 @@ function onWholePlay(propElement)
 	// The audio tag is a sibling of the buttons.
 	var audio = $(propElement).siblings(".whole_song");
 	
-	// Stop all other audio streams.
-	$(".stop").click();
+	// Stop all other audio streams beside this one.
+	var index = parseInt($(propElement).closest(".selectable_song").attr("index"));	// Get the index of the current song.
+	$(".selectable_song").each(function(){	// Go through every song, and...
+		if(parseInt($(this).attr("index")) != index)	// ...if its index does not match ours...
+			$(this).find(".stop").click();				// ...click its stop button.
+	});
 	
 	// If the audio stream has loaded no data, we tell it to do so.
 	if(audio[0].readyState == 0)
@@ -128,7 +132,7 @@ function onSegmentPlay(propElement)
 	// Make sure we only play 20 seconds.
 	if(stop > start+20) stop = start+20;
 	
-	// Stop all other audio streams.
+	// Stop all audio streams.
 	$(".stop").click();
 	
 	// If the audio stream hasn't started loading, we tell it do so.

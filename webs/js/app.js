@@ -113,7 +113,10 @@ function populateSelectedList()
 		for(var i = 0; i < selSongs.length; i++)	// We go through all the selected songs,
 		{
 			var curSong = selSongs[i];				// Create a copy of the song so that we can more easily access it.
-			if(!curSong) continue;
+			if(!curSong) continue;					// If the song is removed from the whole-song list, and the songs
+													// are not reloaded from the database, then it may leave a null
+													// entry in the songs array.
+													
 			// Now we hardcore-style add a new accordion tab to the selected song list.
 			selSongList.append(
 				"<h3 class='sel_song_header' index='"+i+"'>"+curSong.t+" ("+curSong.f+")</h3>"+

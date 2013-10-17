@@ -17,7 +17,7 @@ function onSelectFromAll()
 	// For each of the selected elements,
 	$(".ui-selected", this).each(function() {
 		// if its class is that of a selectable song,
-		if($(this).attr("class").contains("selectable_song"))
+		if($(this).attr("class").indexOf("selectable_song") > -1)
 		{
 			// We get the element's index, 
 			var index = $( "#all_list .selectable_song" ).index( this );
@@ -59,11 +59,11 @@ function onFileSelected()
 
 /*
 	Called when the user clicks the submit button.
+	If done in javascript, this is where server access should happen.
 */
 function onSubmitChanges()
 {
 	$( "#submitting_dialog" ).dialog("open");
-	$( "#submitting_text" ).empty();
 	$( "#submitting_text" ).html("Connecting to <b>HAROLD</b>...");
 	$( "#submitting_progress" ).progressbar({
 		value: false

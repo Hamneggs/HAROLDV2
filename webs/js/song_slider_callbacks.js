@@ -10,7 +10,7 @@ function onTimeSlide(propElement)
 {
 	// Get the index of the time slider in the list, so that
 	// we can know which song it ties to.
-	var index = parseInt($(propElement)closest(".selected_song").attr("index"));
+	var index = parseInt($(propElement).closest(".selected_song").attr("index"));
 	
 	// Use the index to get the current song.
 	var curSong = selSongs[index];

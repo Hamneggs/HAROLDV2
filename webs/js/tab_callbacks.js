@@ -17,7 +17,7 @@ function onSelectFromAll()
 	// For each of the selected elements,
 	$(".ui-selected", this).each(function() {
 		// if its class is that of a selectable song,
-		if($(this).attr("class").contains("selectable_song"))
+		if($(this).attr("class").indexOf("selectable_song") > -1)
 		{
 			// We get the element's index, 
 			var index = $( "#all_list .selectable_song" ).index( this );

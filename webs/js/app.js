@@ -144,8 +144,9 @@ function populateSelectedList()
 			// Get the index of the current song.
 			var index = parseInt($(this).attr("index"));
 			
-			// Get the current song.
-			var curSong = selSongs[i];
+			// Get the current song. If the current song is null, we skip it.
+			var curSong = selSongs[index];
+			if(!curSong)return;
 			
 			// Get the button and slider containers.
 			var buttons = $(this).children(".button_container");
@@ -213,16 +214,16 @@ function populateSelectedList()
 			});
 			
 			// Initialize the song's interval slider.
-			timingSlider.slider({
+			timing.slider({
 				range: 	true,
 				min:	0,
-				max:	selSongs[i].l,
+				max:	curSong.l,
 				values: [curSong.b, curSong.e],
 				slide: 	function(){onTimeSlide(this);}
 			});
 			
 			// As well as the timing slider.
-			volumeSlider.slider({
+			volume.slider({
 				range: "min",
 				min: 0,
 				max: 125,

@@ -24,7 +24,7 @@ function loadSongs()
 		else
 			var newSong = new Song("Song "+i, "Sagat.mp3", 100, i, i+20, .8);			
 			
-		allSongList.append("<li class='ui-widget-content selectable_song' id='selectable_song_"+i+"'>\n"+
+		allSongList.append("<li class='ui-widget-content selectable_song' index="+i+"'>\n"+
 							newSong.t+" ("+newSong.f+")\n"+
 							"<div class='button_container'>"+
 								"<audio class='whole_song' preload='none' src='"+newSong.f+"'/>"+
@@ -35,8 +35,17 @@ function loadSongs()
 							"</li>\n");
 		allSongs.push(newSong);
 		
-		// Initialize the play/pause button of the current song.
-		$("#selectable_song_"+i).children(".button_container").children(".play").button({
+	}
+		
+	$(".selectable_song").each(function()
+	{
+		var index  	= parseInt( $(this).attr("index");
+		var buttons	= $(this).children(".button_container");
+		var play   	= $(buttons).children(".play");
+		var stop   	= $(buttons).children(".stop");
+		var del		= $(buttons).children(".del");
+		
+		$(play).button({
 			text: false,						// Don't want text.
 			icons: {primary: "ui-icon-play"}	// Want the play button though.
 		}).click(function(event, ui){
@@ -60,8 +69,7 @@ function loadSongs()
 			$(this).button("option", options);	// Finally, we push those new options right into the button's lap.
 		});
 		
-		// Initialize the stop button.
-		$("#selectable_song_"+i).children(".button_container").children(".stop").button({
+		$(stop).button({
 			text: false,
 			icons: {primary: "ui-icon-stop"}
 		}).click(function(event, ui){	// When we click stop, we reset the song's play button as well.
@@ -73,14 +81,14 @@ function loadSongs()
 			$(this).siblings(".play").button("option", options);
 		});
 		
-		// Initialize the delete button.
-		$("#selectable_song_"+i).children(".button_container").children(".del").button({
+		$(del).button({
 			text: false,
 			icons: {primary: "ui-icon-trash"}
 		}).click(function(event, ui){
 			onWholeDelete(this);
 		});
-	}
+				
+	});
 }
 
 /*

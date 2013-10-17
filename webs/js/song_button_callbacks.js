@@ -235,10 +235,10 @@ function onSegmentDelete(propElement)
 	var curSong = $(propElement).closest(".selected_song");
 	console.log(curSong);
 	// Get the index of that selected song element.
-	var index = parseInt(curSong.attr("id").split("_")[2]);
+	var index = parseInt(curSong.attr("index"));
 	
 	// Get the header of the current song.
-	var curSongHeader = $(curSong).siblings("#sel_song_header_"+index);
+	var curSongHeader = $(curSong).prev(".sel_song_header");
 	console.log(curSongHeader);
 	
 	// Remove the current song.

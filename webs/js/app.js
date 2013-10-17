@@ -116,12 +116,18 @@ function populateSelectedList()
 			if(!curSong) continue;
 			// Now we hardcore-style add a new accordion tab to the selected song list.
 			selSongList.append(
-				"<h3 class='sel_song_header' id='sel_song_header_"+i+"'>"+curSong.t+" ("+curSong.f+")</h3>"+
-				"<div class='selected_song' id='selected_song_"+i+"'>"+
-					"<p class='interval_label' id='interval_label_"+i+"'>Interval:<p class='interval_data' id='interval_data_"+i+"'>From: "+curSong.b+"(s), to: "+curSong.e+"(s)</p></p>"+
-					"<p class='interval_slider' id='interval_slider_"+i+"'></p>"+
-					"<p class='volume_label' id='volume_label_"+i+"'>Voume:<p class='volume_data' id='volume_data_"+i+"'>"+(curSong.v*100)+"(%)</p></p>"+
-					"<p class='volume_slider' id='volume_slider_"+i+"'></p>"+
+				"<h3 class='sel_song_header' index='"+i+"'>"+curSong.t+" ("+curSong.f+")</h3>"+
+				"<div class='selected_song' index='"+i+"'>"+
+					"<div class='slider_container'>"+
+						"<p class='interval_label'>Interval:"+
+							"<p class='interval_data'>From: "+curSong.b+"(s), to: "+curSong.e+"(s)</p>"+
+						"</p>"+
+						"<p class='interval_slider'></p>"+
+						"<p class='volume_label'>Volume:"+
+							"<p class='volume_data'>"+(curSong.v*100)+"(%)</p>"+
+						"</p>"+
+						"<p class='volume_slider'></p>"+
+					"<div>"+
 					"<div class='button_container'>"+
 						"<audio class='partial_song' preload='none' src='"+curSong.f+"'/>"+
 						"<p class='time_display'>"+curSong.b.toFixed(2)+"(s)"+curSong.e.toFixed(2)+"(s)</p>"+
@@ -131,10 +137,36 @@ function populateSelectedList()
 					"</div>"+
 				"</div>"
 			);
+		}
+		
+		$(".selected_song").each(function()
+		{
+			// Get the index of the current song.
+			var index = parseInt($(this).attr("index"));
+			
+			// Get the current song.
+			var curSong = selSongs[i];
+			
+			// Get the button and slider containers.
+			var buttons = $(this).children(".button_container");
+			var sliders = $(this).children(".slider_container");
+			
+			// Get the buttons.
+			var play = $(buttons).children(".play");
+			var stop = $(buttons).children(".stop");
+			var del  = $(buttons).children(".del");
+			
+			// Get the timing slider and its label.
+			var timing = $(sliders).children("interval_slider");
+			var timingLabel = $(sliders).children("interval_data");
+			
+			// Get also the volume slider and its label.
+			var volume = $(sliders).children("volume_slider");
+			var volumeLabel = $(sliders).children("volume_data");
 			
 			// Initialize the play button.
 			// Same deal as before with these.
-			$("#selected_song_"+i).children(".button_container").children(".play").button({
+			$(play).button({
 				text: false,
 				icons: {primary: "ui-icon-play"}
 			}).click(function(){
@@ -159,7 +191,7 @@ function populateSelectedList()
 			});
 			
 			// Initialize the stop button.
-			$("#selected_song_"+i).children(".button_container").children(".stop").button({
+			$(stop).button({
 				text: false,
 				icons: {primary: "ui-icon-stop"}
 			}).click(function(){
@@ -172,26 +204,15 @@ function populateSelectedList()
 			});
 			
 			// Initialize the delete button.
-			$("#selected_song_"+i).children(".button_container").children(".del").button({
+			$(del).button({
 				text: false,
 				icons: {primary: "ui-icon-trash"}
 			}).click(function()
 			{
 				onSegmentDelete(this);
 			});
-		}
-		
-		// Make the text size, well, reasonable.
-		$(".sel_song_header").css({"font-size":"12px"});
-		$(".sel_song_element").css({"font-size":"12px"});
-		
-		for(var i = 0; i < selSongs.length; i++)
-		{
-			var curSong = selSongs[i];
-			if(!curSong) continue;
 			
-			var curTimeSlider = $("#interval_slider_"+i);
-			curTimeSlider.slider({
+			timingSlider.slider({
 				range: 	true,
 				min:	0,
 				max:	selSongs[i].l,
@@ -199,8 +220,7 @@ function populateSelectedList()
 				slide: 	onTimeSlide,
 			});
 			
-			var curVolSlider = $("#volume_slider_"+i);
-			curVolSlider.slider({
+			volumeSlider.slider({
 				range: "min",
 				min: 0,
 				max: 125,
@@ -208,7 +228,11 @@ function populateSelectedList()
 				value: curSong.v * 100,
 				slide: onVolSlide
 			});
-		}
+		});
+		
+		// Make the text size, well, reasonable.
+		$(".sel_song_header").css({"font-size":"12px"});
+		$(".sel_song_element").css({"font-size":"12px"});
 	}
 }
 		

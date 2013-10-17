@@ -34,17 +34,22 @@ function loadSongs()
 							"</div>"+
 							"</li>\n");
 		allSongs.push(newSong);
-		
 	}
 		
 	$(".selectable_song").each(function()
 	{
-		var index  	= parseInt( $(this).attr("index");
+		// Get the index of the current selectable_song.
+		var index  	= parseInt( $(this).attr("index") );
+		
+		// Get the button container for this song.
 		var buttons	= $(this).children(".button_container");
+		
+		// Get the three buttons.
 		var play   	= $(buttons).children(".play");
 		var stop   	= $(buttons).children(".stop");
 		var del		= $(buttons).children(".del");
 		
+		// Set up the play button.
 		$(play).button({
 			text: false,						// Don't want text.
 			icons: {primary: "ui-icon-play"}	// Want the play button though.
@@ -69,6 +74,7 @@ function loadSongs()
 			$(this).button("option", options);	// Finally, we push those new options right into the button's lap.
 		});
 		
+		// Set up the stop button.
 		$(stop).button({
 			text: false,
 			icons: {primary: "ui-icon-stop"}
@@ -81,13 +87,14 @@ function loadSongs()
 			$(this).siblings(".play").button("option", options);
 		});
 		
+		// Set up the delete button.
 		$(del).button({
 			text: false,
 			icons: {primary: "ui-icon-trash"}
 		}).click(function(event, ui){
 			onWholeDelete(this);
 		});
-				
+
 	});
 }
 

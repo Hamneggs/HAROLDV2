@@ -64,7 +64,6 @@ function onFileSelected()
 function onSubmitChanges()
 {
 	$( "#submitting_dialog" ).dialog("open");
-	$( "#submitting_text" ).empty();
 	$( "#submitting_text" ).html("Connecting to <b>HAROLD</b>...");
 	$( "#submitting_progress" ).progressbar({
 		value: false

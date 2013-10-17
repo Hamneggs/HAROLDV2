@@ -89,7 +89,7 @@ function onWholeDelete(propElement)
 	$( "#del_confirm_button" ).button().click(function(){
 											deleteWholeSong( 
 												parseInt(
-													$(propElement).closest(".selectable_song").attr("id").split("_")[2]
+													$(propElement).closest(".selectable_song").attr("index")
 												)
 											);
 											$( "#del_confirm_dialog" ).dialog("close");

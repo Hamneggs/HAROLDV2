@@ -254,6 +254,8 @@ function onSegmentDelete(propElement)
 	// Remove the current song's header as well, getting rid of the tab.
 	$(curSongHeader).remove();
 	
+	// If there are no more elements in the selected themes tab,
+	// we display the kind no-themes-selected message.
 	if($(".selected_song").size() == 0)
 	{
 		$("#sel_songs").text("You have no songs selected to be your themes, pal!");
@@ -261,10 +263,6 @@ function onSegmentDelete(propElement)
 	
 	// Refresh the accordion, so the interface reflects the changes.
 	$("#sel_songs").accordion( "refresh" );
-	
-	// If there are no more elements in the selected themes tab,
-	// we display the kind no-themes-selected message.
-	
 	
 	// It's important to notice that the indices don't change, either
 	// in the accordion, or in the song array.

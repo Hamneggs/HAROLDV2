@@ -123,7 +123,7 @@ function populateSelectedList()
 				"<div class='selected_song' index='"+i+"'>"+
 					"<div class='slider_container'>"+
 						"<p class='interval_label'>Interval:"+
-							"<p class='interval_data'>From: "+curSong.b+"(s), to: "+curSong.e+"(s)</p>"+
+							"<p class='interval_data'>From: "+curSong.b.toFixed(2)+"(s), to: "+curSong.e.toFixed(2)+"(s)</p>"+
 						"</p>"+
 						"<p class='interval_slider'></p>"+
 						"<p class='volume_label'>Volume:"+
@@ -219,6 +219,7 @@ function populateSelectedList()
 				range: 	true,
 				min:	0,
 				max:	curSong.l,
+				step: .01,
 				values: [curSong.b, curSong.e],
 				slide: 	function(){onTimeSlide(this);}
 			});
@@ -227,7 +228,7 @@ function populateSelectedList()
 			$(volume).slider({
 				range: "min",
 				min: 0,
-				max: 100,
+				max: 101,
 				step: 1,
 				value: curSong.v * 100,
 				slide: function(){onVolSlide(this);}

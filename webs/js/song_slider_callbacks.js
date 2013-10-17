@@ -28,7 +28,7 @@ function onTimeSlide(propElement)
 	);
 	
 	// Update the slider's label.
-	curLabel.text("From: "+curSong.b+"(s), to: "+curSong.e+"(s)");
+	curLabel.text("From: "+curSong.b.toFixed(2)+"(s), to: "+curSong.e.toFixed(2)+"(s)");
 }
 
 /*

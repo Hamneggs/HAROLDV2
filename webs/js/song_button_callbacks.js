@@ -212,14 +212,19 @@ function onSegmentPause(propElement)
 */
 function onSegmentStop(propElement)
 {
+	// Get the index of the accordion tab.
+	var index = parseInt($(propElement).closest(".selected_song").attr("index"));
+	
 	// Get the audio element,
 	var audio = $(propElement).siblings(".partial_song");
+	
 	// and if it has been loaded in any capacity...
 	if(audio[0].readyState != 0)
 	{
-		// stop it and reset its cursor.
+		// Stop the song.
 		audio[0].pause();
-		audio[0].currentTime = 0;
+		// Reset the cursor to the beginning point.
+		audio[0].currentTime = selSongs[index].b;
 	}
 }
 

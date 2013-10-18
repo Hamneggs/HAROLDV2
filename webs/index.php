@@ -21,7 +21,7 @@
 		<div id="tabs">
 			<ul>
 				<li><a class="tab_title" href="#all_songs" title="A listing of all your uploaded songs.">Your Uploaded Songs</a></li>
-				<li><a class="tab_title" href="#sel_songs" title="A listing of the songs you've selected.">Edit Themes</a></li>
+				<li><a class="tab_title" href="#sel_songs" title="A listing of the songs you've selected.">Edit Selected Themes</a></li>
 				<button id="submit" title="Submit your changes to the HAROLD server, so that you can use your new themes in the lobby.">Submit changes to <b>HAROLD</b></button>
 			</ul>
 			<div id="all_songs">

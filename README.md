@@ -12,6 +12,6 @@ New features
 
 Dependencies
 ------------
-* Redis
+* Redis (and phpredis)
 * Node.js
 * Python 2(.7)

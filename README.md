@@ -12,6 +12,6 @@ New features
 
 Dependencies
 ------------
-* Regis
+* Redis
 * Node.js
 * Python 2(.7)

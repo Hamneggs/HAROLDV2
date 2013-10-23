@@ -27,7 +27,7 @@
 			<div id="all_songs">
 				<div id="upload_container" class="ui-widget-content">
 					<p id="upload_label">Upload new song:</p>
-					<input id="upload_button" onchange="onFileSelected()" type="file" title="Upload a new song for use with HAROLD. (*.mp3, *.wav, and *.ogg are accepted.)" accept="audio/*" name="upload_button" placeholder="" value="Upload new song!" id="upload_button"/>
+					<input id="upload_button" type="file" title="Upload a new song for use with HAROLD. (*.mp3, *.wav, and *.ogg are accepted.)" accept="audio/*" name="upload_button" placeholder="" value="Upload new song!" id="upload_button"/>
 					<div id="upload_progress"></div>
 				</div>
 				<div class="list_container" title="These are the songs that you've uploaded. You can select one or more by clicking and dragging, or by ctrl-clicking. When using multiple songs, the server will play one at random when you use your iButton.">

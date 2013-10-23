@@ -44,7 +44,7 @@ function onSelectFromAll()
 	Called when the user finishes selecting a file through the
 	upload dialog.
 */
-function onFileSelected()
+function onFileSelected(event)
 {
 	// Hide the upload button.
 	$("#upload_button").hide();
@@ -55,6 +55,55 @@ function onFileSelected()
 		value: false
 	}).fadeIn(1000);
 	
+	var file = this.files;
+	var xhr = new XMLHttpRequest();
+	xhr.file = file;
+	
+	xhr.addEventListener('progress', function(e) {
+		var done = e.position || e.loaded
+		var total = e.totalSize || e.total;
+		$("#upload_progress").progressbar({
+			max: 1,
+			value: done/total
+		});
+	}, false);
+	
+	if ( xhr.upload ) {
+		xhr.upload.onprogress = function(e) {
+			var done = e.position || e.loaded
+			var total = e.totalSize || e.total;
+			$("#upload_progress").progressbar({
+				max: 1,
+				value: done/total
+			});
+		};
+	}
+	
+	xhr.onreadystatechange = function(e) {
+        if ( 4 == this.readyState ) 
+		{
+			$("#upload_progress").siblings("#upload_label").text("Upload complete!!!");
+			$("#upload_progress").fadeOut(1000);
+			int = setInterval(function() {
+				$("#upload_progress").siblings("#upload_label").text("Upload new song:");
+				$("#upload_button").show();
+				clearInterval(int);
+			}, 1000);
+        }
+		else
+		{
+			$("#upload_progress").siblings("#upload_label").text("Error during upload.");
+			$("#upload_progress").fadeOut(1000);
+			int = setInterval(function() {
+				$("#upload_progress").siblings("#upload_label").text("Upload new song:");
+				$("#upload_button").show();
+				clearInterval(int);
+			}, 1000);
+		}
+    };	
+	
+    xhr.open('post', '', true);
+    xhr.send(file);
 }
 
 /*

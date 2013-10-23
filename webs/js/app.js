@@ -6,6 +6,14 @@ var allSongs = new Array();
 var selSongs = new Array();
 
 /*
+	Initializes document callbacks.
+*/
+function initCallbacks()
+{
+	document.getElementById("upload_button").addEventListener('change', function(e) {onFileSelected(e, this);});
+}
+
+/*
 	Loads the songs from whatever method we are going to use.. (Not yet, though.)
 */
 function loadSongs()
@@ -27,7 +35,7 @@ function loadSongs()
 		allSongList.append("<li class='ui-widget-content selectable_song' index="+i+"'>\n"+
 							newSong.t+" ("+newSong.f+")\n"+
 							"<div class='button_container'>"+
-								"<audio class='whole_song' preload='none' src='"+newSong.f+"'/>"+
+								"<audio class='whole_song' preload='auto' src='"+newSong.f+"'/>"+
 								"<button title='Play entire song' class='play'>play</button>\n"+
 								"<button title='Stop playback' class='stop'>stop</button>\n"+
 								"<button title='Delete song from server' class='del'>delete</button>\n"+
@@ -43,6 +51,19 @@ function loadSongs()
 		
 		// Get the button container for this song.
 		var buttons	= $(this).children(".button_container");
+		
+		// Get the audio element of this song.
+		console.log($(buttons).children(".whole_song"));
+		var audio = $(buttons).children(".whole_song");
+		
+		// Set the length of the song.
+		console.log("BEFORE: "+allSongs[index].l);
+		console.log("DURATION: "+audio[0].duration);
+		if(audio[0].readyState != 0)
+		{
+			allSongs[index].l = audio[0].duration;
+			console.log("AFTER: "+allSongs[index].l);
+		}
 		
 		// Get the three buttons.
 		var play   	= $(buttons).children(".play");
@@ -132,7 +153,7 @@ function populateSelectedList()
 						"<p class='volume_slider'></p>"+
 					"</div>"+
 					"<div class='button_container'>"+
-						"<audio class='partial_song' preload='none' src='"+curSong.f+"'/>"+
+						"<audio class='partial_song' preload='metadata' src='"+curSong.f+"'/>"+
 						"<p class='time_display'>"+curSong.b.toFixed(2)+"(s) ~ "+curSong.e.toFixed(2)+"(s)</p>"+
 						"<button title='Play selected interval' class='play'>play</button>\n"+
 						"<button title='Stop playback' class='stop'>stop</button>\n"+
@@ -248,6 +269,9 @@ function init()
 {
 	// Load the songs.
 	loadSongs();
+	
+	// Initialize document callbacks.
+	initCallbacks();
 	
 	// Set up the tooltips for the user.
 	$( document ).tooltip({

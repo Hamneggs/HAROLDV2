@@ -44,7 +44,7 @@ function onSelectFromAll()
 	Called when the user finishes selecting a file through the
 	upload dialog.
 */
-function onFileSelected(event)
+function onFileSelected(event, element)
 {
 	// Hide the upload button.
 	$("#upload_button").hide();
@@ -55,7 +55,13 @@ function onFileSelected(event)
 		value: false
 	}).fadeIn(1000);
 	
-	var file = this.files;
+	var file = element.files[0];
+	
+	if(file.size > 10000000)
+	{
+		alert("File too large. Max size is 10 storage-industry megabytes.");
+	}
+	console.log(element.files[0]);
 	var xhr = new XMLHttpRequest();
 	xhr.file = file;
 	
@@ -66,6 +72,7 @@ function onFileSelected(event)
 			max: 1,
 			value: done/total
 		});
+		console.log("progress: "+done/total);
 	}, false);
 	
 	if ( xhr.upload ) {
@@ -76,6 +83,7 @@ function onFileSelected(event)
 				max: 1,
 				value: done/total
 			});
+			console.log("progress: "+done/total);
 		};
 	}
 	
@@ -102,7 +110,7 @@ function onFileSelected(event)
 		}
     };	
 	
-    xhr.open('post', '', true);
+    xhr.open('post', 'index.php', true);
     xhr.send(file);
 }
 

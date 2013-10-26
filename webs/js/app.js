@@ -5,6 +5,9 @@ var allSongs = new Array();
 // An array created to store every song the user has selected.
 var selSongs = new Array();
 
+// The server URL.
+var SERVER_URL = "";
+
 /*
 	Initializes document callbacks.
 */
@@ -24,6 +27,14 @@ function loadSongs()
 	// Nuke that jive ass honky mothafucka.
 	allSongList.empty();
 	
+	/*
+	var songs = $.ajax({
+		url: SERVER_URL+"/user="+user,
+		dataType: "json",
+		error: function() {allSongList.text("COULD NOT LOAD YOUR SHIT OH GOD OH JEEBUS SAVE US ALL");},
+		done: function(data){songs = data;}
+	});
+	*/
 	// Do some stuff to load songs, and for each song, set up the play/pause, stop, and delete buttons.
 	for(var i = 0; i < 50; i++)
 	{

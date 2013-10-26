@@ -59,8 +59,10 @@ function onFileSelected(event, element)
 	
 	if(file.size > 10000000)
 	{
-		alert("File too large. Max size is 10 storage-industry megabytes.");
+		alert("File too large. Max size is 10 storage-industry megabytes. Don't be a little bitch about fidelity next time.");
+		return;
 	}
+	
 	console.log(element.files[0]);
 	var xhr = new XMLHttpRequest();
 	xhr.file = file;
@@ -110,7 +112,7 @@ function onFileSelected(event, element)
 		}
     };	
 	
-    xhr.open('post', 'index.php', true);
+    xhr.open('post', SERVER_URL, true);
     xhr.send(file);
 }
 

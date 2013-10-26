@@ -10,6 +10,15 @@
 	<script type="text/javascript" src="js/song_slider_callbacks.js"></script>
 	<script type="text/javascript" src="js/tab_callbacks.js"></script>
 	<script type="text/javascript" src="js/app.js"></script>
+	<?php
+	// Fuck it this is how we'll know who the hell peeps be.
+			$user = getenv("KRB5CCNAME"));
+echo <<< JS
+<script type="text/javascript">
+  var user = $user;
+</script>
+JS;
+	?>
 	<script>
 	  $(function() {
 		init();

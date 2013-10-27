@@ -4,7 +4,11 @@ import pydub
 import pyaudio
 import redis
 import serial
+<<<<<<< HEAD
 from CSHLDAP import CSHLDAP
+=======
+import cshldap
+>>>>>>> 684d5ae19d437d893fc6d8f948f651b5f0c8864d
 import os
 
 def loadSong(filename):
@@ -145,7 +149,11 @@ def createUserDictionary():
 		-None
 	
 	Returns:
+<<<<<<< HEAD
 		-A dictionary whose keys are userIDs and values are user-names.
+=======
+		-A dictionary whose keys are userIDs and values are usernames.
+>>>>>>> 684d5ae19d437d893fc6d8f948f651b5f0c8864d
 	"""
 	# Open up a connection to LDAP.
 	print "  Opening LDAP connection..."
@@ -180,14 +188,21 @@ def main():
 	# Create a value to store the number of songs played.
 	numPlayed = 0
 	
+<<<<<<< HEAD
 	# Create a variable to store the serial-read id.
 	id = ''
 	
+=======
+>>>>>>> 684d5ae19d437d893fc6d8f948f651b5f0c8864d
 	# Construct a dictionary of iButton ids to user-names.
 	members = createUserDictionary()
 
 	# Create PyAudio instance.
+<<<<<<< HEAD
 	audio = pyaudio.PyAudio()
+=======
+	audio = pyaudio.PyAudio();
+>>>>>>> 684d5ae19d437d893fc6d8f948f651b5f0c8864d
 	
 	# Create serial connection.
 	print "Creating serial connection..."
@@ -216,7 +231,11 @@ def main():
 	while True:
 
 		# read serial number.
+<<<<<<< HEAD
 		print "Waiting for iButton..."
+=======
+		print "Reading iButton..."
+>>>>>>> 684d5ae19d437d893fc6d8f948f651b5f0c8864d
 		id = ser.readline()
 		id = id[1:] # trim first character.
 		id = id.rstrip() # remove leading and trailing white space.
@@ -224,10 +243,14 @@ def main():
 		
 		# plug it in to the dictionary so that we can the the user name.
 		member = members[id]
+<<<<<<< HEAD
 		if member = None:
 			print "Invalid iButton ID, or user is not in the system."
 		else:
 			print "Corresponding member: "+member
+=======
+		print "Corresponding member: "+member
+>>>>>>> 684d5ae19d437d893fc6d8f948f651b5f0c8864d
 		
 		# pick a song listing from the selection of current songs.
 		print "Selecting song..."

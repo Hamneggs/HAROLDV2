@@ -12,6 +12,8 @@ New features
 
 Dependencies
 ------------
-* Redis (and phpredis)
-* Node.js
-* Python 2(.7)
+* Node.js, for web backend goodness
+* Python 2(.7), for iButton interaction
+* Redis (and associated libraries for Node.js and Python) for userdata storage
+* PyDub, for audio splitting
+* PyAudio, for audio playback

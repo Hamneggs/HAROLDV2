@@ -25,6 +25,9 @@ function onWholePlay(propElement)
 	if(audio[0].readyState == 0)
 		audio[0].load();
 	
+	// Store the duration of the song.
+	allSongs[index].l = audio[0].duration;
+		
 	// The audio will play when ready.
 	audio[0].play();
 }

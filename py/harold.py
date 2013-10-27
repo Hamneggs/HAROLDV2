@@ -112,6 +112,7 @@ def getRandomSong(userID):
 	r = redis.StrictRedis(host='localhost', port=6379, db='Harold')
 	if r == None:
 		print "   Could not establish connection to Redis database."
+		input("Press any key to exit.")
 		sys.exit()
 	
 	# Get a random song from the user's selection.. Note that songs are
@@ -151,6 +152,7 @@ def createUserDictionary():
 	ldap = CSHLDAP('mickey', 'mcdick')
 	if ldap == None:
 		print "    Could not establish LDAP connection."
+		input("Press any key to exit.")
 		sys.exit()
 	
 	# Get all them members.
@@ -189,6 +191,7 @@ def main():
 	ser = serial.Serial( port='/dev/ttyUSB0', baudrate=4800 )
 	if ser == None:
 		print "  Could not create serial connection."
+		input("Press any key to exit.")
 		sys.exit()
 
 	# Open and verify serial port.
@@ -200,7 +203,7 @@ def main():
 	else:
 		print "Serial port was not opened correctly."
 		input("Press any key to exit.")
-		exit()
+		sys.exit()
 
 	# Clear existing data.
 	print "Flushing pre-existing serial data."

@@ -75,16 +75,18 @@ def playSong(songSegment):
 	framesPer = 1024;
 	
 	# Open a stream with our PyAudio instance to play the song selection.
+	print "  Opening stream..."
 	stream = audio.open(format=p.get_format_from_width(songSegment.sample_width),
 						channels=songSegment.channels,
 						rate=songSegment.frame_rate,
 						output=True)
 	
 	# You know this shit is sweet.
+	print "  Pushing audio through stream..."
 	for frame in range(0, len(songSegment), framesPer):
 		stream.write( songSegment[frame:(frame+framesPer)] );
 		
-def getSongRandomly(userID):
+def getRandomSong(userID):
 	"""
 	Opens a connection to the local Redis server, and gets a random song
 	selection.
@@ -106,37 +108,88 @@ def getSongRandomly(userID):
 			-"volume":	The volume at which to play the song.
 	"""
 	# Open up a Redis connection.
+	print "  Opening Redis connection..."
 	r = redis.StrictRedis(host='localhost', port=6379, db='Harold')
+	if r == None:
+		print "   Could not establish connection to Redis database."
+		sys.exit()
 	
 	# Get a random song from the user's selection.. Note that songs are
 	# stored independent of users. Each userID key points to a 'set' of
 	# keys that point to songs, which are hashes.
+	print "  Getting song from member's selected set."
 	songFromSet = r.SRANDMEMBER(userID, 1);
 	
 	# Now that we have a key to a song has, we get all the data from it
 	# return it.
+	print "  Getting selected song's properties..."
 	songProperties = r.HGETALL(songFromSet);
 	
 	# If we can't get a song from the user, we just return a dictionary
 	# full of the place holder song's properties.
 	if songProperties == None:
+		print "    Using fallback default song properties."
 		return {"name": 'placeholderSong.wav', "path": 'usr/Harold/songs/placeholderSong.wav', "start":0, "stop":20, "volume":1}
 	else return songProperties;
+	
+def createUserDictionary():
+	"""
+	Creates a dictionary of user names indexed by user ID.
+	
+	Prerequisites:
+		-Able to log into LDAP, and the LDAP database contains userID 
+		attributes.
+	
+	Parameters:
+		-None
+	
+	Returns:
+		-A dictionary whose keys are userIDs and values are usernames.
+	"""
+	# Open up a connection to LDAP.
+	print "  Opening LDAP connection..."
+	ldap = CSHLDAP('mickey', 'mcdick')
+	if ldap == None:
+		print "    Could not establish LDAP connection."
+		sys.exit()
+	
+	# Get all them members.
+	members = ldap.members()
+	
+	# Create an empty dictionary to store all the pairs.
+	memberDict = {}
+	
+	# Go through each member returned and give them an entry 
+	# into the dictionary.
+	for member in members:
+		memberDict[ member[1]["idNumber"] ] = member[1]["uid"]
+	
+	# Return the dictionary.
+	return memberDict
+		
+	
+	
+	
 	
 def main():
 	"""
 	The main execution of Harold's Python naughty-bits. 
 	"""
-	# connect to LDAP.
-	# construct dictionary of iButton ids to user names.
-	# disconnect from LDAP.
+	# Create a value to store the number of songs played.
+	numPlayed = 0
+	
+	# Construct a dictionary of iButton ids to user-names.
+	members = createUserDictionary()
 
-	# Create PyAudio instance, and a stream to pump sound through.
+	# Create PyAudio instance.
 	audio = pyaudio.PyAudio();
 	
 	# Create serial connection.
 	print "Creating serial connection..."
 	ser = serial.Serial( port='/dev/ttyUSB0', baudrate=4800 )
+	if ser == None:
+		print "  Could not create serial connection."
+		sys.exit()
 
 	# Open and verify serial port.
 	print "Opening serial connection..."
@@ -157,15 +210,19 @@ def main():
 	while True:
 
 		# read serial number.
+		print "Reading iButton..."
 		id = ser.readline()
 		id = id[1:] # trim first character.
 		id = id.rstrip() # remove leading and trailing white space.
+		print "iButton read: "+id
 		
 		# plug it in to the dictionary so that we can the the user name.
+		member = members[id]
+		print "Corresponding member: "+member
 		
 		# pick a song listing from the selection of current songs.
 		print "Selecting song..."
-		selection = getSongRandomly(id)
+		selection = getRandomSong(member)
 		print "Song: "+selection["name"]+"( "+selection["path"]+" )"
 		
 		# load the song.
@@ -178,10 +235,14 @@ def main():
 		
 		# Play the pruned song.
 		print "Playing song..."
-		playSong(song);
+		playSong(song)
 		
 		# Clear serial input so stacking doesn't occur.
-		ser.flushInput();
+		print "Clearing existing serial input... "
+		ser.flushInput()
+		
+		# increprint the number of songs played.
+		print "Number of themes played: "+(numPlayed+=1)
 		
 # Execute that shit!
 main()
